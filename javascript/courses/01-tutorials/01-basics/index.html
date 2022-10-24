@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript Basics</title>
+  </head>
+  <body>
+    <a href="about.html">about</a>
+
+    <h1>home page</h1>
+    <!-- Inline JS -->
+    <!--? Même problème qu'avec le CSS -> on doit changer le code pour chaque élément -->
+    <button onclick="alert('hello people')">click me</button>
+    <button onclick="alert('hello world')">click me</button>
+    <button onclick="alert('hello world')">click me</button>
+
+    <!-- Internal JS -->
+    <button class="btn">random button</button>
+    <button class="btn">random button</button>
+    <button class="btn">random button</button>
+    <button class="btn">random button</button>
+    <button class="btn">random button</button>
+    <button class="btn">random button</button>
+    <button class="btn">random button</button>
+    <!--! Il faut metre le script aà la fin du HTML car il doit être chargé avant d'utiliser le JS -->
+    <script>
+      //? Pas besoin de connaître le code, c'est juste pour montrer le JS interne
+      // document.querySelectorAll('.btn').forEach((item) => {
+      //   item.addEventListener('click', () => {
+      //     alert('this is awesome');
+      //   });
+      // });
+    </script>
+    <!--? Le problème ici est que le JS ne s'applique pas sur d'autres pages -->
+    <script src="./app.js"></script>
+  </body>
+</html>

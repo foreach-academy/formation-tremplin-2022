@@ -1,0 +1,58 @@
+/** position: static - par défaut, toujours positionné dans le flow normal */
+
+/** position: relative - position relative à sa position initiale */
+
+/** On utilise top, bottom, left, right pour déplacer l'élément */
+
+/** position: absolue - position relative au parent avec une position: relative  */
+
+/** position: fixed - relative à l'écran, reste quand on scroll */
+/** va utiliser les autres contenus pour remplir l'espace */
+
+/** position: sticky - toggles entre relative et fixed */
+/** on utilise les valeurs top, left, bottom, right pour positionner l'élément quand on scrollera */
+
+/* * {
+  margin: 0;
+  padding: 0;
+} */
+
+div {
+  border: 3px solid red;
+  background-color: yellow;
+  margin-top: 40px;
+  position: relative;
+}
+
+.one {
+  background-color: blue;
+  color: white;
+}
+
+.two {
+  background-color: green;
+  color: white;
+}
+
+.special {
+  background-color: pink;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.nav {
+  background-color: red;
+  color: white;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  /* margin-top: 0; */
+  width: 100%;
+}
+
+.container {
+  background-color: blue;
+  min-height: 200vh;
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll</title>
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <!-- styles -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- js -->
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <!-- header -->
+    <header id="home">
+      <nav id="nav">
+        <div class="nav-center">
+          <!-- nav header -->
+          <div class="nav-header">
+            <img src="./logo.svg" alt="logo" class="logo" />
+            <button class="nav-toggle">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+          <!-- links -->
+          <div class="links-container">
+            <ul class="links">
+              <li>
+                <a href="#home" class="scroll-link">accueil</a>
+              </li>
+              <li>
+                <a href="#about" class="scroll-link">à propos</a>
+              </li>
+              <li>
+                <a href="#services" class="scroll-link">services</a>
+              </li>
+              <li>
+                <a href="#tours" class="scroll-link">visites</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- banner -->
+      <div class="banner">
+        <div class="container">
+          <h1>projet scroll</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit non
+            inventore accusamus perspiciatis eius nemo nihil architecto itaque
+            laudantium suscipit!
+          </p>
+          <a href="#tours" class="scroll-link btn btn-white"
+            >explorer les visites</a
+          >
+        </div>
+      </div>
+    </header>
+    <!-- about -->
+    <section id="about" class="section">
+      <div class="title">
+        <h2>à<span>propos</span></h2>
+      </div>
+    </section>
+    <!-- services -->
+    <section id="services" class="section">
+      <div class="title">
+        <h2>nos <span>services</span></h2>
+      </div>
+    </section>
+    <!-- tours -->
+    <section id="tours" class="section">
+      <div class="title">
+        <h2>visites en <span>vedettes</span></h2>
+      </div>
+    </section>
+    <!-- footer -->
+    <footer class="section">
+      <p>
+        copyright &copy; compagnie de circuits touristiques Backroads
+        <span class="date"></span>
+        .tous droits réservés
+      </p>
+    </footer>
+    <!-- back to top button -->
+    <a href="#home" class="scroll-link top-link">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+  </body>
+</html>

@@ -15,21 +15,26 @@ const susan = {
 };
 
 // john.greet();
+
+//! va échouer
 // susan.greet();
 
 function greet() {
   console.log(this);
   console.log(`Bonjour, je suis ${this.name} et j'ai ${this.age} ans`);
 }
-
 // greet();
 
+// affecte la référence de la méthode à une constante
 const secondGreet = john.greet;
 // console.log(secondGreet);
+//! this fait référence à l'objet window donc ça ne marche pas
+// secondGreet();
 
 //* call
-// greet.call(john);
-// secondGreet.call(susan);
-// greet.call({ name: 'peter', age: 30 });
+greet.call(john);
+// greet.call(susan);
+secondGreet.call(susan);
+greet.call({ name: 'peter', age: 30 });
 
 john.greet.call(susan);

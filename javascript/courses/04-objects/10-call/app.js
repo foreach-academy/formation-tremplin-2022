@@ -32,9 +32,9 @@ const secondGreet = john.greet;
 // secondGreet();
 
 //* call
-greet.call(john);
+// <greet.call(john);
 // greet.call(susan);
-secondGreet.call(susan);
-greet.call({ name: 'peter', age: 30 });
+// secondGreet.call(susan);
+// greet.call({ name: 'peter', age: 30 });>
 
 john.greet.call(susan);

@@ -29,6 +29,9 @@ class Gallery {
 
     // bind
     this.closeModal = this.closeModal.bind(this);
+    this.nextImage = this.nextImage.bind(this);
+    this.prevImage = this.prevImage.bind(this);
+    this.chooseImage = this.chooseImage.bind(this);
 
     // event
     this.container.addEventListener(
@@ -43,7 +46,6 @@ class Gallery {
 
   openModal(selectedImage, list) {
     this.setMainImage(selectedImage);
-    this.closeBtn.addEventListener('click', this.closeModal);
     this.modalImages.innerHTML = list
       .map(function (image) {
         return `<img src=${
@@ -52,16 +54,60 @@ class Gallery {
       })
       .join('');
     this.modal.classList.add('open');
+    this.closeBtn.addEventListener('click', this.closeModal);
+    this.nextBtn.addEventListener('click', this.nextImage);
+    this.prevBtn.addEventListener('click', this.prevImage);
+    this.modalImages.addEventListener('click', this.chooseImage);
   }
 
   closeModal() {
     this.modal.classList.remove('open');
     this.closeBtn.removeEventListener('click', this.closeModal);
+    this.nextBtn.removeEventListener('click', this.nextImage);
+    this.prevBtn.removeEventListener('click', this.prevImage);
   }
 
   setMainImage(selectedImage) {
     this.modalImg.src = selectedImage.src;
     this.imageName.textContent = selectedImage.title;
+  }
+
+  nextImage() {
+    const selected = this.modalImages.querySelector('.selected');
+    // let nextImage;
+
+    // if (selected.nextElementSibling) {
+    //   nextImage = selected.nextElementSibling;
+    // } else {
+    //   nextImage = this.modalImages.firstChild;
+    // }
+
+    // short circuit
+    const nextImage =
+      selected.nextElementSibling || this.modalImages.firstElementChild;
+
+    selected.classList.remove('selected');
+    nextImage.classList.add('selected');
+    this.setMainImage(nextImage);
+  }
+
+  prevImage() {
+    const selected = this.modalImages.querySelector('.selected');
+    const prevImage =
+      selected.previousElementSibling || this.modalImages.lastElementChild;
+
+    selected.classList.remove('selected');
+    prevImage.classList.add('selected');
+    this.setMainImage(prevImage);
+  }
+
+  chooseImage(e) {
+    if (e.target.classList.contains('modal-img')) {
+      const selected = this.modalImages.querySelector('.selected');
+      selected.classList.remove('selected');
+      e.target.classList.add('selected');
+      this.setMainImage(e.target);
+    }
   }
 }
 

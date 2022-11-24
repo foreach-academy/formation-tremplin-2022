@@ -23,9 +23,9 @@
 #### Afficher les Produits
 
 - importer les produits
-- faire une copie et l'assigner à une nouvelle variable `filteredProducts` (utiliser le mot-clef let)
-- sélectioner .products-container
-- créer une fonction displayProducts, itérer à travers les produits et les afficher
+- faire une copie du tableau `products` et l'assigner à une nouvelle variable `filteredProducts` (utiliser le mot-clef let)
+- sélectionner .products-container
+- créer une fonction `displayProducts`, itérer à travers les produits et les afficher
 
 #### Filtrer en fonction du texte
 
@@ -34,6 +34,9 @@
 - récupérer la valeur de l'input
 - filtrer en fonction de la valeur de l'input
 - appeler displayProducts
+
+<details>
+<summary><b>SPOILER : </b> Filtrer avec le texte</summary>
 
 ```js
 // Text Filter
@@ -50,6 +53,8 @@ form.addEventListener('keyup', () => {
   displayProducts();
 });
 ```
+
+</details>
 
 #### Tableau Vide
 

@@ -14,7 +14,18 @@ const udemy = 'udemy';
 // console.log(Array.from(udemy));
 
 // créé un tableau de longueur 5 rempli de undefined par défaut
-console.log(Array.from({ length: 5 }));
+// console.log(Array.from({ length: 5 }));
 
 // créé un tableau de longueur 5 rempli de "tacos"
-console.log(Array.from({ length: 5 }, () => 'tacos'));
+// console.log(Array.from({ length: 5 }, () => 'tacos'));
+
+function countTotal() {
+  // mot-clef
+  console.log(arguments);
+
+  const total = Array.from(arguments).reduce((total, num) => total + num);
+
+  console.log(total);
+}
+
+countTotal(67, 89, 54, 100);

@@ -5,9 +5,9 @@ import displayUser from './utils/displayUser.js';
 const showUser = async () => {
   // récupére l'utilisateur depuis l'api
   const person = await fetchUser();
-  console.log(person);
 
   // affiche l'utilisateur
+  displayUser(person);
 };
 
 window.addEventListener('DOMContentLoaded', showUser);

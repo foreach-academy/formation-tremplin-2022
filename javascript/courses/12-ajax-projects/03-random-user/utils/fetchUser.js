@@ -6,16 +6,28 @@ const fetchUser = async () => {
   try {
     const response = await fetch(url);
     const {
-      results: [data]
+      results: [person]
     } = await response.json();
 
     // destructure
-    const { age } = data.dob;
+    const { email, phone } = person;
+    const { large: image } = person.picture;
+    const { password } = person.login;
+    const { first, last } = person.name;
+    const { age } = person.dob;
     const {
       street: { number, name }
-    } = data.location;
+    } = person.location;
 
-    return { age: age, street: number + ' ' + name };
+    return {
+      email,
+      phone,
+      image,
+      password,
+      name: `${first} ${last}`,
+      age,
+      street: `${number} ${name}`
+    };
   } catch (error) {
     console.log(error);
   }

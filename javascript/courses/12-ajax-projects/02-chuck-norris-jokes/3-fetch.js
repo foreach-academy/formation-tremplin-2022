@@ -4,15 +4,14 @@ const btn = document.querySelector('.btn');
 const content = document.querySelector('.content');
 const img = document.querySelector('.container img');
 
-btn.addEventListener('click', async () => {
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    displayData(data);
-  } catch (error) {
-    console.log(error);
-  }
-});
+btn.addEventListener('click', () =>
+  // fetch est basé sur les promesses
+  // fait une requête GET par défaut
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => displayData(data))
+    .catch((err) => console.log(err))
+);
 
 const displayData = ({ value: joke }) => {
   const random = Math.random() * 1000;

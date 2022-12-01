@@ -4,8 +4,14 @@ import displayDrink from './src/displaySingleDrink.js';
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 const presentDrink = async () => {
-  // récupère les infos du cocktail
-  // affiche les infos du cocktail
+  const id = localStorage.getItem('drink');
+
+  if (!id) {
+    window.location.replace('./index.html');
+  } else {
+    const drink = await fetchDrinks(`${url}${id}`);
+    displayDrink(drink);
+  }
 };
 
 window.addEventListener('DOMContentLoaded', () => {

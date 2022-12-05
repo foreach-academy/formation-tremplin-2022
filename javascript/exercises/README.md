@@ -5,8 +5,8 @@
 ### Utiliser `map` pour écrire une fonction qui ajoute un `!` à chaque élément.
 
 ```js
-const f = (strings) => {
-  return strings;
+const f = (array) => {
+  return array;
 };
 
 // BUT
@@ -116,7 +116,7 @@ console.log([
 
 ## Async/Await
 
-### Utiliser async/wait pour compléter cette fonction `quadruple` ("multiplie le nombre par 4"). Elle devrait utiliser la fonction `double` deux fois.
+### Utiliser async/await pour compléter cette fonction `quadruple` ("multiplie le nombre par 4"). Elle devrait utiliser la fonction `double` deux fois.
 
 ```js
 const double = (n) => {

@@ -1,4 +1,4 @@
-import Final from './tutorial/1-useState/5-useStateCounter';
+import Final from './tutorial/3-conditional-rendering/3-show-hide';
 
 const App = () => {
   return (

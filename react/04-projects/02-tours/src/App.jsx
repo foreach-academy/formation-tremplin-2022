@@ -39,7 +39,7 @@ const App = () => {
     );
   }
 
-  if (tours.length === 0) {
+  if (!tours.length) {
     return (
       <main>
         <div className='title'>

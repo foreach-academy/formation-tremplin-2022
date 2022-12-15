@@ -42,3 +42,19 @@
 
 - **Alert.jsx**
   - p.alert.alert-success
+
+## Logique
+
+- Dans **App.jsx** intitialiser les states :
+
+```js
+const [name, setName] = useState('');
+const [list, setList] = useState(getLocalStorage());
+const [isEditing, setIsEditing] = useState(false);
+const [editId, setEditId] = useState(null);
+const [alert, setAlert] = useState({
+  show: false,
+  msg: '',
+  type: ''
+});
+```

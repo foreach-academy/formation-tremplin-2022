@@ -1,4 +1,11 @@
+import { links, social } from './data';
+import Navbar from './Navbar';
+
 const App = () => {
-  return <h1>Navbar</h1>;
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 };
 export default App;

@@ -1,20 +1,20 @@
-import React from 'react';
 import { FaBehance, FaFacebook, FaLinkedin, FaTwitter } from 'react-icons/fa';
+
 export const links = [
   {
     id: 1,
     url: '/',
-    text: 'random'
+    text: 'accueil'
   },
   {
     id: 2,
     url: '/about',
-    text: 'about'
+    text: 'à propos'
   },
   {
     id: 3,
     url: '/projects',
-    text: 'projects'
+    text: 'projets'
   },
   {
     id: 4,
@@ -24,7 +24,7 @@ export const links = [
   {
     id: 5,
     url: '/profile',
-    text: 'profile'
+    text: 'profil'
   }
 ];
 

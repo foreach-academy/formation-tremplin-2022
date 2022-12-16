@@ -1,12 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import List from './List';
 import Alert from './Alert';
 
-const getLocalStorage = () => {};
+const getLocalStorage = () => {
+  const list = localStorage.getItem('list');
+
+  if (list) {
+    return JSON.parse(list);
+  } else {
+    return [];
+  }
+};
 
 const App = () => {
   const [name, setName] = useState('');
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(getLocalStorage());
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
   const [alert, setAlert] = useState({
@@ -15,16 +23,33 @@ const App = () => {
     type: ''
   });
 
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(list));
+    setIsEditing(false);
+    setName('');
+    setEditId(null);
+  }, [list]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!name) {
       showAlert(true, 'danger', 'veuillez entrer une valeur');
-    } else {
+    } else if (!isEditing) {
       const newItem = { title: name, id: new Date().getTime().toString() };
       setList([...list, newItem]);
       showAlert(true, 'success', 'item ajouté');
-      setName('');
+    } else {
+      setList(
+        list.map((item) => {
+          if (item.id === editId) {
+            return { ...item, title: name };
+          }
+
+          return item;
+        })
+      );
+      showAlert(true, 'success', "l'item a bien été modifié");
     }
   };
 
@@ -42,7 +67,12 @@ const App = () => {
     showAlert(true, 'danger', "l'item a bien été supprimé");
   };
 
-  const editItem = (id) => {};
+  const editItem = (id) => {
+    setIsEditing(true);
+    setEditId(id);
+    const specificItem = list.find((item) => item.id === id);
+    setName(specificItem.title);
+  };
 
   return (
     <section className='section-center'>
@@ -56,12 +86,14 @@ const App = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <button className='submit-btn'>ajouter</button>
+          <button className='submit-btn'>
+            {isEditing ? 'modifier' : 'ajouter'}
+          </button>
         </div>
       </form>
       {list.length > 0 && (
         <div className='grocery-container'>
-          <List items={list} removeItem={removeItem} />
+          <List items={list} removeItem={removeItem} editItem={editItem} />
           <button className='clear-btn' onClick={clearList}>
             vider la liste
           </button>

@@ -1,12 +1,9 @@
-const Follower = () => {
+const Follower = ({ avatar_url, html_url, login }) => {
   return (
     <article className='card'>
-      <img
-        src='https://avatars.githubusercontent.com/u/3006?v=4'
-        alt='tarasis'
-      />
-      <h4>tarasis</h4>
-      <a href='#' className='btn'>
+      <img src={avatar_url} alt={login} />
+      <h4>{login}</h4>
+      <a href={html_url} target='_blank' className='btn' rel='noreferrer'>
         voir profil
       </a>
     </article>

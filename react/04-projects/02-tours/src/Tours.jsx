@@ -1,7 +1,10 @@
 import React from 'react';
 import Tour from './Tour';
+import { useGlobalContext } from './context';
 
-const Tours = ({ tours, removeTour }) => {
+const Tours = () => {
+  const { tours } = useGlobalContext();
+
   return (
     <section>
       <div className='title'>
@@ -10,7 +13,7 @@ const Tours = ({ tours, removeTour }) => {
       </div>
       <div>
         {tours.map((tour) => (
-          <Tour key={tour.id} {...tour} removeTour={removeTour} />
+          <Tour key={tour.id} {...tour} />
         ))}
       </div>
     </section>

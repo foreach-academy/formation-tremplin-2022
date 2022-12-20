@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useGlobalContext } from './context';
 
-const Tour = ({ id, info, name, price, image, removeTour }) => {
-  const [readMore, setReadMore] = useState(false);
+const Tour = ({ id, info, name, price, image }) => {
+  const { readMore, setReadMore, removeTour } = useGlobalContext();
 
   return (
     <article className='single-tour'>

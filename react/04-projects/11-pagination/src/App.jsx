@@ -1,28 +1,11 @@
 import { useState, useEffect } from 'react';
 import Follower from './Follower';
-import paginate from './utils';
-
-const url = 'https://api.github.com/users/john-smilga/followers?per_page=100';
+import { useFetch } from './useFetch';
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, data } = useFetch();
   const [page, setPage] = useState(0);
-  const [data, setData] = useState([]);
   const [followers, setFollowers] = useState([]);
-
-  const getFollowers = async (url) => {
-    setIsLoading(true);
-
-    try {
-      const resp = await fetch(url);
-      const data = await resp.json();
-      setData(paginate(data));
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
 
   const prevPage = () => {
     setPage((oldPage) => {
@@ -47,10 +30,6 @@ const App = () => {
       return newPage;
     });
   };
-
-  useEffect(() => {
-    getFollowers(url);
-  }, []);
 
   useEffect(() => {
     if (isLoading) return;

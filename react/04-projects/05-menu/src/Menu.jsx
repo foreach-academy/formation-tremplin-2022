@@ -1,8 +1,12 @@
-const Menu = ({ menuItems }) => {
+import { useGlobalContext } from './context';
+
+const Menu = () => {
+  const { menuItems } = useGlobalContext();
+
   return (
     <div className='section-center'>
       {menuItems.map((item) => {
-        const { id, img, title, category, price, desc } = item;
+        const { id, img, title, price, desc } = item;
 
         return (
           <article className='menu-item' key={id}>

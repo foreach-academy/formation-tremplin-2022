@@ -1,4 +1,8 @@
-const Categories = ({ categories, filterItems }) => {
+import { useGlobalContext } from './context';
+
+const Categories = () => {
+  const { categories, filterItems } = useGlobalContext();
+
   return (
     <div className='btn-container'>
       {categories.map((category, index) => (

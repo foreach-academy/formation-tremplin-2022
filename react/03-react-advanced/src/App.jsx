@@ -1,4 +1,4 @@
-import Final from './tutorial/8-custom-hooks/1-fetch.example';
+import Final from './tutorial/9-useReducer';
 
 const App = () => {
   return (

@@ -1,4 +1,4 @@
-import Final from './tutorial/8-custom-hooks/2-useFetch';
+import Final from './tutorial/8-custom-hooks/1-fetch.example';
 
 const App = () => {
   return (

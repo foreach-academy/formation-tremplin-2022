@@ -1,9 +1,10 @@
 import { useState, useContext, createContext } from 'react';
 import { data } from '../../data';
 
+// initialise le contexte
 const PersonContext = createContext();
 // on a accès à un composant lorqu'on utilise createContext() - Provider
-// Provider agit comme un distributeur. Il doit envelopper notre composant racine (tout notre application)
+// Provider agit comme un distributeur. Il doit envelopper notre composant racine (toute notre application)
 // console.log(PersonContext)
 
 const ContextAPI = () => {
@@ -14,6 +15,7 @@ const ContextAPI = () => {
   };
 
   return (
+    // distribue nos states et fonctions dans toute notre app
     <PersonContext.Provider value={{ people, removePerson }}>
       <section>
         <h3>context API / useContext</h3>

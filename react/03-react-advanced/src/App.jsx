@@ -1,4 +1,4 @@
-import Final from './tutorial/9-useReducer';
+import Final from './tutorial/10-prop-types';
 
 const App = () => {
   return (

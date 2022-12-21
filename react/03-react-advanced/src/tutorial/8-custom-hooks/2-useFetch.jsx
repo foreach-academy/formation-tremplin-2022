@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 //! un custom hook commence toujours par useQuelqueChose - sinon erreur car on ne peut pas utiliser des hooks de React dans une fonction régulière
 const useFetch = (url) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
   const getData = async (url) => {

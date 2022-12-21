@@ -1,4 +1,4 @@
-import Final from './tutorial/10-prop-types';
+import Final from './tutorial/11-memo-useMemo-useCallcack';
 
 const App = () => {
   return (

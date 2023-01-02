@@ -10,7 +10,7 @@ Installer `React Router DOM` :
 npm install react-router-dom
 ```
 
-- Mettre en place le routeer dans `main.jsx`
+- Mettre en place le router dans `App.jsx`
 - Créer deux dossiers `pages` et `components`
 
 ## Pages
@@ -43,7 +43,7 @@ npm install react-router-dom
 
 - Si loading retourner `<Loading/>`
 
-- Si !cocktails.length returnouer
+- Si !cocktails.length retourner
 
 ```js
 <h2 className='section-title'>no cocktails matched your search criteria</h2>
@@ -74,7 +74,7 @@ npm install react-router-dom
 
 ### SearchForm.jsx
 
-- section.section-search
+- section.section.search
   - form.search-form
     - div.form-control
       - label

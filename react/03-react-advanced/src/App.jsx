@@ -1,4 +1,4 @@
-import Final from './tutorial/11-memo-useMemo-useCallcack';
+import Final from './tutorial/12-react-router/pages';
 
 const App = () => {
   return (

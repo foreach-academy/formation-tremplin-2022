@@ -454,17 +454,11 @@ fi
 
 6. Créer un tableau nommé `REPONSES`. Donner ces six valeurs : `Oui`, `Non`, `Peut-être`, `Bonnes perspectives`, `Ne comptez pas dessus` et `Redemandez plus tard`
 
-<details>
-  <summary>Solution</summary>
-
 ```sh
-RESPONSES=("Yes" "No" "Maybe" "Outlook good" "Don't count on it" "Ask again later")
+RESPONSES=("Oui" "Non" "Peut-être" "Bonnes perspectives" "Ne comptez pas dessus" "Redemandez plus tard")
 ```
 
-</details>
-<br />
-
-7. Utiliser `echo`pour afficher le dernier élément
+7. Utiliser `echo` pour afficher le dernier élément
 
 <details>
   <summary>Solution</summary>
@@ -501,7 +495,7 @@ echo ${RESPONSES[$N]}
 <br />
 
 ```
-Utiliser la commande `help funciton`.
+Utiliser la commande `help function`.
 ```
 
 10. Créer une fonction `GET_FORTUNE` avant le dernier `echo`
@@ -510,15 +504,15 @@ Utiliser la commande `help funciton`.
   <summary>Solution</summary>
 
 ```sh
-echo ${RESPONSES[$N]}
+GET_FORTUNE() {}
 ```
 
 </details>
 <br />
 
-11. Dans la fonction, utiliser `echo` pour afficher `Poser une question oui ou non :
+11. Dans la fonction, utiliser `echo` pour afficher `Posez une question oui ou non :`
 
-12. Appeler la fonction en mettant le nom de celle-ci en dessous de l'endroit où on l'a créé. Aucun `$` nécessaire. S'assurer que la réponse que l'on affiche se trouve en bas du fichier.
+12. Appeler la fonction en mettant le nom de celle-ci (sans les parenthèses) en dessous de l'endroit où on l'a créé. Aucun `$` nécessaire. S'assurer que la réponse que l'on affiche se trouve en bas du fichier.
 
 13. Dans la fonction, après avoir affiché la question, utiliser `read`pour récupérér l'entrée de l'utilisateur dans une variable nommée `QUESTION`
 
@@ -527,7 +521,7 @@ echo ${RESPONSES[$N]}
 
 ```sh
 GET_FORTUNE() {
-  echo  "Ask a yes or no question:"
+  echo "Posez une question oui ou non :"
   read QUESTION
 }
 ```
@@ -537,21 +531,18 @@ GET_FORTUNE() {
 
 14. Exécuter le script
 
-On veut s'assurer que l'entrée est une question. Nous allons ajouter une boucle qui demande une entrée jusqu'à ce que l'entrée se termine par un point d'interrogation.
+On veut s'assurer que l'entrée est une question. Nous allons ajouter une boucle après la fonction qui demande une entrée jusqu'à ce que l'entrée se termine par un point d'interrogation.
 
 ```sh
 Voir `help until`.
 Voir `help [[ expression ]]`.
 ```
 
-15. Tester si l'entrée se termine par un point d'interrogation (`?`).
-
 <details>
   <summary>Solution</summary>
 
 ```sh
-until [[ $QUESTION =~ \?$ ]]
-do
+until [[ $QUESTION =~ \?$ ]]; do
   GET_FORTUNE
 done
 ```
@@ -559,11 +550,26 @@ done
 </details>
 <br />
 
+15. Tester si l'entrée se termine par un point d'interrogation (`?`).
+
 On sait qu'on demande la même chose si l'entrée n'est pas ce que l'on veut. Nous devons informer les utilisateurs que la question doit se terminer par `?`.
 
 16. Ajouter une condition `if` dans la fonction qui vérifie `si [[ ! $1 ]]` (si il n'y a pas d'argument). Placer l'instruction `echo` existante dans le bloc `then` et s'assurer que le `read` existant est après la fin de la condition `if`.
 
-17. Ajouter un `else` qui affiche `Réessayer. Assurez-vous que la question se termine par un point d'interrogation :`
+<details>
+  <summary>Solution</summary>
+
+```sh
+if [[ ! $1 ]]; then
+  echo "Posez une question oui ou non :"
+fi
+
+read QUESTION
+```
+
+</details>
+
+17. Ajouter un `else` qui affiche `Réessayez. Assurez-vous que la question se termine par un point d'interrogation :`
 
 18. Appeler la fonction `GET_FORTUNE` avec l'argument `again`
 
@@ -580,11 +586,48 @@ done
 </details>
 <br />
 
-19. Dans le script, appeler la fonction `GET_FORTUNE`sans arguement avant la boucle `until`
+19. Dans le script, appeler la fonction `GET_FORTUNE`sans argument avant la boucle `until`
 
 20. Ajouter un saut de ligne là où on afiche la réponse
 
 21. Exécuter le script
+
+<details>
+  <summary>Solution</summary>
+
+```sh
+#!/bin/bash
+
+# Programme pour dire la bonne aventure à une personne
+
+echo -e "\n~~ Diseur de Bonne Aventure ~~\n"
+
+RESPONSES=("Oui" "Non" "Peut-être" "Bonnes perspectives" "Ne comptez pas dessus" "Demander à nouveau plus tard")
+
+N=$(( RANDOM % 6))
+
+
+GET_FORTUNE() {
+  if [[ ! $1 ]]; then
+    echo "Posez une question oui ou non :"
+  else
+    echo "Réessayez. Assurez-vous que la question se termine par un point d'interrogation :"
+  fi
+
+  read QUESTION
+}
+
+GET_FORTUNE
+
+until [[ $QUESTION =~ \?$ ]]; do
+  GET_FORTUNE again
+done
+
+echo -e "\n${RESPONSES[$N]}"
+
+```
+
+</details>
 
 # Projet #5
 

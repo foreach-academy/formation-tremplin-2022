@@ -325,15 +325,17 @@ done
 
 8. Exécuter le script
 
-Les numéros de bingo vont jusqu'à 75, chaque numéro est associé à une lettre du mot `bingo`. Nous devrons générer aléatoirement un nombre compris entre 1 et 75. Bash peut avoir quelque chose qui peut nous aider ici. Un shell est livré avec des variables d'environnement.
+Les numéros de bingo vont jusqu'à `75`, chaque numéro est associé à une lettre du mot `bingo`. Nous devrons générer aléatoirement un nombre compris entre 1 et 75.
+
+Bash peut avoir quelque chose qui peut nous aider ici. Un shell est livré avec des variables d'environnement.
 
 9. Affichons-les en entrant `printenv` dans le terminal.
 
 Ce sont toutes des variables d'environnement, elles sont prédéfinies et chargées avec chaque shell. La plupart d'entre elles ne sont pas très pertinentes, mais il est bon de savoir qu'elles sont là.
 
-10. Utiliser la commande `echo $RANDOM` dnas le terminal
+10. Utiliser la commande `echo $RANDOM` dans le terminal
 
-11. Dans le script, utiliser la variable `RANDOM` pour définir `NUMBER`à un autre aléotoire au lieu de `5`
+11. Dans le script, utiliser la variable `RANDOM` pour définir `NUMBER`à un autre aléatoire au lieu de `5`
 
 <details>
   <summary>Solution</summary>
@@ -345,30 +347,27 @@ NUMBER=$RANDOM
 </details>
 <br />
 
-La variable `RANDOM` générera un nombre aléatoire entre 0 et 32767. Nous pouvons utiliser l'opérateur de `module` pour le placer dans la plage souhaitée.
+La variable `RANDOM` générera un nombre aléatoire entre `0` et `32767`.
 
-12. Changer la variable `NUMBER` à `$RANDOM%75`
+Nous pouvons utiliser l'opérateur `module` (`%`) pour le placer dans la plage souhaitée.
+
+12. Changer la valeur de `NUMBER` à `$RANDOM%75`
 
 Bash voit tout comme des chaînes de caractères.
 
-`(( ... ))` effectuera un calcul ou une opération et n'affichera rien. `$(( ... ))` remplacera le calcul par son résultat.
+`(( ... ))` effectuera un calcul ou une opération et n'affichera rien. `$(( ... ))` retournera le résultat.
 
 13. Changer la variable `NUMBER` égale à un nombre aléatoire entre 1 et 75
 
-<details>
-  <summary>Solution</summary>
-
 ```sh
-NUMBER=$(( RANDOM%75 + 1 ))
+NUMBER=$(( RANDOM % 3 + 1 ))
 ```
-
-</details>
 
 14. Exécuter le script
 
 15. Créer une variable `TEXT` et définir la valeur sur `"Le prochain numéro est "`. Lorsque le script est terminé, la sortie sera quelque chose comme `Le prochain numéro est B:15`.
 
-La lettre qui va avec le nombre aléatoire dépend de ce que le nombre est. Si c'est 15 ou moins, ce sera un `B`.
+La lettre qui va avec le nombre aléatoire dépend de ce que le nombre est. Si c'est `15` ou moins, ce sera un `B`.
 
 16. Faire une condition `if`
 
@@ -376,8 +375,7 @@ La lettre qui va avec le nombre aléatoire dépend de ce que le nombre est. Si c
   <summary>Solution</summary>
 
 ```sh
-if (( NUMBER <= 15 ))
-then
+if (( NUMBER <= 15)); then
   echo $TEXT B:$NUMBER
 fi
 ```
@@ -385,17 +383,15 @@ fi
 </details>
 <br />
 
-17. Faire une condition `elif` si c'est 30 ou moins, ce sera un `I`. Utiliser la notion `[[ ]]`
+17. Faire une condition `elif` si c'est `30` ou moins, ce sera un `I`. Utiliser la notion `[[ ]]`
 
 <details>
   <summary>Solution</summary>
 
 ```sh
-if (( NUMBER <= 15 ))
-then
+if (( NUMBER <= 15)); then
   echo $TEXT B:$NUMBER
-elif [[ $NUMBER -le 30 ]]
-then
+elif [[ $NUMBER -le 30 ]]; then
   echo $TEXT I:$NUMBER
 fi
 ```
@@ -403,20 +399,17 @@ fi
 </details>
 <br />
 
-18. Faire une condition `elif` si c'est moins de 46, ce sera un `N`. Utiliser la notation `(( ))`
+18. Faire une condition `elif` si c'est moins de `46`, ce sera un `N`. Utiliser la notation `(( ))`
 
 <details>
   <summary>Solution</summary>
 
 ```sh
-if (( NUMBER <= 15 ))
-then
+if (( NUMBER <= 15 )); then
   echo $TEXT B:$NUMBER
-elif [[ $NUMBER -le 30 ]]
-then
+elif [[ $NUMBER -le 30 ]]; then
   echo $TEXT I:$NUMBER
-elif (( $NUMBER < 46 ))
-then
+elif (( $NUMBER < 46 )); then
   echo $TEXT N:$NUMBER
 fi
 ```
@@ -424,7 +417,7 @@ fi
 </details>
 <br />
 
-19. Faire une condition `elif` si c'est moins de 61, ce sera un `G`. Utiliser la notation `[[ ]]`
+19. Faire une condition `elif` si c'est moins de `61`, ce sera un `G`. Utiliser la notation `[[ ]]`
 
 20. Ajouter un `else` pour afficher la dernière phrase
 
@@ -432,17 +425,13 @@ fi
   <summary>Solution</summary>
 
 ```sh
-if (( NUMBER <= 15 ))
-then
+if (( NUMBER <= 15)); then
   echo $TEXT B:$NUMBER
-elif [[ $NUMBER -le 30 ]]
-then
+elif [[ $NUMBER -le 30 ]]; then
   echo $TEXT I:$NUMBER
-elif (( $NUMBER < 46 ))
-then
+elif (( NUMBER < 46 )); then
   echo $TEXT N:$NUMBER
-elif [[ $NUMBER -lt 61 ]]
-then
+elif [[ $NUMBER -lt 61 ]]; then
   echo $TEXT G:$NUMBER
 else
   echo $TEXT O:$NUMBER

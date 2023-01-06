@@ -442,7 +442,7 @@ Cette table aura plusieurs lignes avec le même `character_id` et plusieurs lign
 
 63. Afficher le détail de `character_actions`pour voir la clef composite
 
-64. Insérer trois lignes dans `character_actions` pour toutes les actions que Yoshi peut effectuer. Il peut toutes les effectuer.
+64. Insérer trois lignes dans `character_actions` pour toutes les actions que `Yoshi` peut effectuer. Il peut toutes les effectuer.
 
 ```SQL
 Insert INTO character_actions(character_id, action_id) VALUES(7,1),(7,2),(7,3);
@@ -460,23 +460,25 @@ Insert INTO character_actions(character_id, action_id) VALUES(7,1),(7,2),(7,3);
 
 70. `Luigi` peut effectuer toutes les actions
 
-71. Le dernier est `Mario`. Ajouter trois lignes pour ses actions
+71. `daisy` peut effectuer toutes les actions
+
+72. Le dernier est `Mario`. Ajouter trois lignes pour ses actions
 
 ```SQL
 Insert INTO character_actions(character_id, action_id) VALUES(1,1),(1,2),(1,3);
 ```
 
-70. Afficher les données de `character_actions`
+73. Afficher les données de `character_actions`
 
-71. Afficher toutes les tables
+74. Afficher toutes les tables
 
-72. Afficher les données de `characters`
+75. Afficher les données de `characters`
 
-73. Afficher les données de `more_info`
+76. Afficher les données de `more_info`
 
 On peut voir que le `character_id`, il nous suffit donc de trouver l'id correspondant dans la table `characters` pour savoir à qui il s'adresse Nous l'avons ajouté en tant que clef étrangère, cela signifie que vous pouvez obtenir toutes les données des deux tables avec une commande `JOIN`
 
-74. Entrer une commande `JOIN` pour voir **toutes** les infos des deux tables. Les tables `characters` et `more_info` ont la colonne `character_id` en commun
+77. Entrer une commande `JOIN` pour voir **toutes** les infos des deux tables. Les tables `characters` et `more_info` ont la colonne `character_id` en commun
 
 ```SQL
 SELECT * FROM characters FULL JOIN more_info ON characters.character_id = more_info.character_id;
@@ -484,11 +486,11 @@ SELECT * FROM characters FULL JOIN more_info ON characters.character_id = more_i
 
 Nous pouvons maintenant voir toutes les informations des deux tables. Si vous vous souvenez, c'est une relation "one-to-one". Il y a donc une ligne dans chaque table qui correspond à une ligne de l'autre.
 
-75. Utiliser une autre commande `JOIN` pour afficher les tables `characters` et `sounds` ensemble. Elles utilisent la colonne `character_id` comme clef
+78. Utiliser une autre commande `JOIN` pour afficher les tables `characters` et `sounds` ensemble. Elles utilisent la colonne `character_id` comme clef
 
 Cela montre la relation "one-to-many". Nous pouvons voir que certains personnages ont plus d'une ligne car ils ont de **nombreux** sons.
 
-76. Afficher toutes les infos des tables `characters`, `actions`et `character_ations`
+79. Afficher toutes les infos des tables `characters`, `actions`et `character_ations`
 
 ```SQL
 SELECT * FROM character_actions

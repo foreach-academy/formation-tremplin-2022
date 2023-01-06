@@ -1,44 +1,41 @@
 # Apprendre le SQL
 
-Ajouter dans les variables d'environnement PATH les chemins suivants (à modifier selonvotre système) :
+Ajouter dans les variables d'environnement PATH les chemins suivants (à modifier selon votre système) :
 
-- C:\Program Files\PostgreSQL\14\bin
-- C:\Program Files\PostgreSQL\14\lib
+- C:\Program Files\PostgreSQL\15\bin
+- C:\Program Files\PostgreSQL\15\lib
 
 Nous commençons avec deux fichers `.csv` students et courses.
 
 1. Se connecter à PostgreSQL
 2. Afficher la liste des BDDs avec `\l`
 
-## Créer une BDD `students`
+## BDD `students`
 
+- Créer une BDD `students`
 - Se connecter à la BDD avec `\c students`
-
-## Créer une table `students`
-
-## Créer une table `majors`
-
-## Créer une table `courses`
-
-## Créer une table `majors_courses`
-
+- Créer une table `students`
+- Créer une table `majors`
+- Créer une table `courses`
+- Créer une table `majors_courses`
 - Afficher les tables avec `\d`
 
-## Créer les colonnes
+## Création des colonnes
 
 ### Table `students`
 
 1. Créer une colonne `student_id` de type `SERIAL` et en faire une `PRIMARY KEY`
 2. Ajouter une colonne `first_name` de type `VARCHAR(50)` et qui a une contrainte `NOT NULL`
 3. Ajouter une colonne `last_name` de type `VARCHAR(50)` et qui a une contrainte `NOT NULL`
-4. Ajouter une colonne major_id de type `INT` (qui sera clef étrangère)
-5. Ajouter une colonne gpa de type `NUMERIC(2, 1)`
-6. Afficher ledétail de `students`avec `\d students`
+4. Ajouter une colonne `major_id` de type `INT` (qui sera clef étrangère)
+5. Ajouter une colonne `gpa` de type `NUMERIC(2, 1)`
+6. Afficher le détail de `students`avec `\d students`
 
 ### Table `majors`
 
 1. Créer une colonne `major_id` de type `SERIAL` et en faire une `PRIMARY KEY`
 2. Ajouter une colonne `major` de type `VARCHAR(50)` et qui a une contrainte `NOT NULL`
+
 3. Définir la colonne `major_id` de la table `students` en tant que clef étrangère qui référence `major_id`dans la table `majors`
 
 <details>
@@ -71,7 +68,8 @@ ALTER TABLE majors_courses ADD FOREIGN KEY(major_id) REFERENCES majors(major_id)
 </details>
 <br />
 
-3. Ajouter une colonne `course_id`de type `INT` 4. Définir la colonne `course_id` en tant que clef étrangère qui référence `course_id`dans la table `courses`
+3. Ajouter une colonne `course_id`de type `INT`
+4. Définir la colonne `course_id` en tant que clef étrangère qui référence `course_id`dans la table `courses`
 
 <details>
   <summary>Solution</summary>
@@ -83,9 +81,15 @@ ALTER TABLE majors_courses ADD FOREIGN KEY(course_id) REFERENCES courses(course_
 </details>
 <br />
 
-Il manque une chose. Cette table n'a pas de clef primaire. Les données de `courses.csv` iront dans ce tableau. Une seule spécialisation (`major`) y sera plusieurs fois, et même avec un cours (`course`). Ainsi, aucun d'entre eux ne peut être une clef primaire. Mais il n'y aura jamais une ligne avec les deux mêmes valeurs qu'une autre ligne. Ainsi, les deux colonnes ensemble sont uniques. Nous pouvons créer une clef primaire composite qui utilise plusieurs colonnes comme clé unique.
+Il manque une chose. Cette table n'a pas de clef primaire.
 
-5. Créer une clef primaire composite
+Les données de `courses.csv` iront dans ce tableau.
+
+Une seule spécialisation (`major`) y sera plusieurs fois, et même avec un cours (`course`). Ainsi, aucun d'entre eux ne peut être une clef primaire. Mais il n'y aura jamais une ligne avec les deux mêmes valeurs qu'une autre ligne. Ainsi, les deux colonnes ensemble sont uniques.
+
+Nous pouvons créer une clef `primaire composite` qui utilise plusieurs colonnes comme clé unique.
+
+5. Créer une `clef primaire composite`
 
 <details>
   <summary>Solution</summary>

@@ -11,5 +11,5 @@ On voudrait voir aussi qui utilise l'imprimante.
 Je suis dans une petite épicerie qui vend des produits.
 Mes produits sont des légumes, alors ils ont un nom, une quantité et un code.
 Mes clients ont un compte client dans ma boutique et il y a un enregistrement à chaque achat.
-Mes clients possède un nom prénom et matricule de fidelité
+Mes clients possèdent un nom prénom et matricule de fidelité
 J’aimerais gérer les factures de mes clients.

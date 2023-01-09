@@ -303,8 +303,8 @@ done
 14. au-dessus de la boucle ajouter la variable suivante:
 
 ```sh
-export PGPASSWORD=mon_mot_de_passe
-PSQL="psql -X --username=postgres --dbname=students -W --no-align --tuples-only -c"
+export PGPASSWORD=mettre_son_mot_de_passe
+PSQL="psql -X -U postgres -d students --no-align --tuples-only -c"
 ```
 
 Cela nous permettra d'interroger notre base de données à partir de notre script.
@@ -378,7 +378,7 @@ TRUNCATE majors, students, majors_courses;
 
 Il reste une entrée (donnée) dnas la table `courses`
 
-25. Utiliser `TRUNCATE`pour supprimer toutes les données de `courses`. Il faut tronquer toutes les tables utilisant une colonne en tant que clef étrangère en même temps
+25. Utiliser `TRUNCATE` pour supprimer toutes les données de `courses`. Il faut tronquer toutes les tables utilisant une colonne en tant que clef étrangère en même temps
 
 <details>
   <summary>Solution</summary>
@@ -451,7 +451,7 @@ Les trois ont été ajoutés dans notre BDD
 
 Nous voulons un message lorsque quelque chose est inséré afin que le script soit plus informatif
 
-32. En-dessous de la variable `INSERT_MAJOR_RESULT` ajouter une condition `if`qui vérifie si la variable est égale à `"INSERT 0 1"`, ce qui affichera un message `Inséré dans majors, $MAJOR` avec la commande `echo`
+32. En-dessous de la variable `INSERT_MAJOR_RESULT` ajouter une condition `if` qui vérifie si la variable est égale à `"INSERT 0 1"`, ce qui affichera un message `Inséré dans majors, $MAJOR` avec la commande `echo`
 
 <details>
   <summary>Solution</summary>
@@ -478,7 +478,7 @@ TRUNCATE majors CASACDE;
 
 34. Vérifier que la table est vide et éxécuter le script
 
-35. En-dessous du commentaire `get new major_id` définir `MAJOR_ID`à une requête que récupère le nouveau `major_id`depuis la BDD
+35. En-dessous du commentaire `get new major_id` définir `MAJOR_ID` à une requête que récupère le nouveau `major_id` depuis la BDD
 
 <details>
   <summary>Solution</summary>
@@ -591,7 +591,7 @@ cp students.csv students_test.csv
 
 2. Garder les cinq premières lignes de `students_test.csv`
 
-3. Dans `insert_data.sh`, en-dessous de la boucle, utiliser la commande `cat` et parcourir `students_test.csv` et `read`pour créer les variables `FIRST`, `LAST`, `MAJOR` et `GPA`. Utiliser la commande `echo`pour afficher `FIRST`
+3. Dans `insert_data.sh`, en-dessous de la boucle, utiliser la commande `cat` et parcourir `students_test.csv` et `read` pour créer les variables `FIRST`, `LAST`, `MAJOR` et `GPA`. Utiliser la commande `echo`pour afficher `FIRST`
 
 <details>
   <summary>Solution</summary>
@@ -640,7 +640,7 @@ MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
 </details>
 <br />
 
-9. Sous le commentaire `if not found`ajouter une condition `if`qui vérifie si la variable est vide. Mettre le commentaire `set to null` dans ce bloc
+9. Sous le commentaire `if not found` ajouter une condition `if` qui vérifie si la variable est vide. Mettre le commentaire `set to null` dans ce bloc
 
 <details>
   <summary>Solution</summary>
@@ -691,7 +691,7 @@ if [[ -z $MAJOR_ID ]]
 </details>
 <br />
 
-13. Sous la variable créée, ajouter une condition `if`qui vérifié si elle est égale à `"INSERT 0 1"` comme les autres. Si c'est le cas, utiliser `echo`pour afficher `Inséré dans students, $FIRST $LAST`
+13. Sous la variable créée, ajouter une condition `if`qui vérifié si elle est égale à `"INSERT 0 1"` comme les autres. Si c'est le cas, utiliser `echo` pour afficher `Inséré dans students, $FIRST $LAST`
 
 <details>
   <summary>Solution</summary>

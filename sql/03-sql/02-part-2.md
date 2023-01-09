@@ -2,9 +2,7 @@
 
 [Documentation SQL](https://sql.sh/)
 
-Si besoin d'importer la BDD, utiliser la commande `psql -U postgres < students.sql` dans le terminal
-
-- Vérifier d'être connecté à la BDD, sinon utiliser la commande `\c students`
+Si besoin d'importer la BDD, utiliser la commande `psql -U postgres -d students < students.sql` dans le terminal
 
 ## Réaliser un script pour voir les infos des étudiants
 
@@ -32,14 +30,13 @@ chmod +x student_info.sh
 ```
 
 </details>
-<br />
 
-4. Sous le shebang, ajouter un commentaire `Info à propos de mes étudiants en informatique depuis la BDD students`
+4. Sous le **shebang**, ajouter un commentaire `Info à propos de mes étudiants en informatique depuis la BDD students`
 
 5. Dans le script, utiliser `echo` pour afficher `~~ Mes Étudiants en Informatique ~~`. Utiliser le flag `-e` pour ajouter une nouvelle ligne au début et à la fin du texte
 
 ```sh
-echo -e "\n~~ My Computer Science Students ~~\n"
+echo -e "\n~~ Mes Étudiants en Informatique ~~\n"
 ```
 
 5. Exécuter le script `student_info.sh`
@@ -47,10 +44,11 @@ echo -e "\n~~ My Computer Science Students ~~\n"
 6. Dans le script, créer une variable `PSQL` pour faire une requête de connexion à la BDD
 
 ```sh
-PSQL="psql -X --username=postgres --dbname=students --no-align --tuples-only -c"
+export PGPASSWORD=admin
+PSQL="psql -X -U postgres -d students --no-align --tuples-only -c"
 ```
 
-7. sous la variable PSQL, utiliser `echo`pour afficher `Prénom, Nom et GPA des étudiants avec un GPA de 4.0:`
+7. Sous la variable PSQL, utiliser `echo`pour afficher `Prénom, Nom et GPA des étudiants avec un GPA de 4.0:`
 
 ```sh
 echo -e "\nPrénom, nom et GPA des étudiants avec un GPA de 4.0 :"
@@ -92,19 +90,21 @@ echo "$($PSQL "SELECT course from courses WHERE course < 'D'")"
 </details>
 <br />
 
-11. Exécuter le script 13. Ajouter un autre phrase qui affiche `Prénom, nom et GPA des étudiants dont le nom commence par un 'R' ou après et ont un GPA supérieur à 3.8 ou inférieur à 2.0 :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
+11. Exécuter le script
+
+12. Ajouter un autre phrase qui affiche `Prénom, nom et GPA des étudiants dont le nom commence par un 'R' ou sont après, et ont un GPA supérieur à 3.8 ou inférieur à 2.0 :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
 
 <details>
   <summary>Solution</summary>
 
 ```sh
-echo -e "\nTous les cours dont la première lettre est avant le 'D' dans l'alphabet :"
+echo -e "\nPrénom, nom et GPA des étudiants dont le nom commence par un 'R' ou après et ont un GPA supérieur à 3.8 ou inférieur à 2.0"
 ```
 
 </details>
 <br />
 
-12. Utiliser echo pour afficher le résultat de cette requête et exécuter le script
+13. Utiliser echo pour afficher le résultat de cette requête et exécuter le script
 
 <details>
   <summary>Solution</summary>
@@ -116,7 +116,7 @@ echo "$($PSQL "SELECT first_name, last_name, gpa FROM students WHERE last_name >
 </details>
 <br />
 
-13. Ajouter un autre phrase qui affiche `Nom des étudiants dont le nom contient "sa" insensible à la casse ou un "r" comme avant dernière lettre :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
+14. Ajouter un autre phrase qui affiche `Nom des étudiants dont le nom contient "sa" insensible à la casse ou un "r" comme avant dernière lettre :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
 
 <details>
   <summary>Solution</summary>
@@ -128,7 +128,7 @@ echo "$($PSQL "SELECT last_name FROM students WHERE last_name ILIKE '%sa%' OR la
 </details>
 <br />
 
-14. Ajouter un autre phrase qui affiche `Prénom, nom et GPA des étudiants qui n'ont pas sélectionnés une majeure et dont le prénom commence par un 'D' ou dont le GPA est supérieur à 3.0 :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
+15. Ajouter un autre phrase qui affiche `Prénom, nom et GPA des étudiants qui n'ont pas sélectionnés une majeure et dont le prénom commence par un 'D' ou dont le GPA est supérieur à 3.0 :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
 
 <details>
   <summary>Solution</summary>
@@ -140,7 +140,7 @@ echo "$($PSQL "SELECT first_name, last_name, gpa FROM students WHERE major_id IS
 </details>
 <br />
 
-15. Ajouter un autre phrase qui affiche `Noms des cinq premiers cours, dans l'ordre alphabétique inversé, qui ont un 'e' en seconde lettre or qui se terminent par un 's' :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
+16. Ajouter un autre phrase qui affiche `Noms des cinq premiers cours, dans l'ordre alphabétique inversé, qui ont un 'e' en seconde lettre or qui se terminent par un 's' :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
 
 <details>
   <summary>Solution</summary>
@@ -152,7 +152,7 @@ echo "$($PSQL "SELECT course FROM courses WHERE course LIKE '_e%' OR course LIKE
 </details>
 <br />
 
-16. Ajouter un autre phrase qui affiche `GPA moyen de tous les étudiants arrondi à deux décimales :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
+17. Ajouter un autre phrase qui affiche `GPA moyen de tous les étudiants arrondi à deux décimales :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
 
 <details>
   <summary>Solution</summary>
@@ -164,7 +164,7 @@ echo "$($PSQL "SELECT ROUND(AVG(gpa),2) from students")"
 </details>
 <br />
 
-17. Ajouter un autre phrase qui affiche `ID de la majeure, nombre total d'étudiants dans une colonne nommée "number_of_students" et GPA moyen arrondi à deux décimales dans une colonne nommée "average_gpa", pour chaque ID de majeure dans le tableau des étudiants ayant un nombre d'étudiants supérieur à 1 :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
+18. Ajouter un autre phrase qui affiche `ID de la majeure, nombre total d'étudiants dans une colonne nommée "number_of_students" et GPA moyen arrondi à deux décimales dans une colonne nommée "average_gpa", pour chaque ID de majeure dans le tableau des étudiants ayant un nombre d'étudiants supérieur à 1 :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
 
 <details>
   <summary>Solution</summary>
@@ -176,7 +176,7 @@ echo "$($PSQL "SELECT major_id, COUNT(student_id) AS number_of_students, ROUND(A
 </details>
 <br />
 
-18. Ajouter un autre phrase qui affiche `Liste des majeures, par ordre alphabétique, qu'aucun étudiant ne suit ou a un étudiant dont le prénom contient un "ma" insensible à la casse :`
+19. Ajouter un autre phrase qui affiche `Liste des majeures, par ordre alphabétique, qu'aucun étudiant ne suit ou a un étudiant dont le prénom contient un "ma" insensible à la casse :`
 
 Les table `majors` et `students` sont liées à la clef étrangère `major_id`. Si nous voulons voir le nom d'une majeure qu'un étudiant suit, nous devons `JOIN` les deux tables en une seule
 
@@ -216,7 +216,7 @@ SELECT * FROM majors LEFT JOIN students ON majors.major_id = students.major_id;
 </details>
 <br />
 
-19. Utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
+20. Utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
 
 <details>
   <summary>Solution</summary>
@@ -228,7 +228,7 @@ echo "$($PSQL "SELECT major FROM majors FULL JOIN students ON majors.major_id=st
 </details>
 <br />
 
-20. Ajouter un autre phrase qui affiche `Liste des cours uniques, par ordre alphabétique inversé, qu'aucun étudiant ou 'Obie Hilpert' ne suit :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
+21. Ajouter un autre phrase qui affiche `Liste des cours uniques, par ordre alphabétique inversé, qu'aucun étudiant ou 'Obie Hilpert' ne suit :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
 
 Il existe un mot-clef de raccourci, `USING` pour joindre des tables si la colonne de la clef étrangère porte le même nom dans les deux tables.
 
@@ -244,7 +244,7 @@ echo "$($PSQL "SELECT DISTINCT(c.course) FROM students FULL JOIN majors USING(ma
 </details>
 <br />
 
-21. Ajouter un autre phrase qui affiche `Liste des cours, par ordre alphabétique, avec un seul étudiant inscrit :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
+22. Ajouter un autre phrase qui affiche `Liste des cours, par ordre alphabétique, avec un seul étudiant inscrit :` et utiliser echo pour afficher le résultat. Exéctuer le script pour vérifier
 
 <details>
   <summary>Solution</summary>

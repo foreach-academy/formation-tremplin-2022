@@ -3,21 +3,29 @@
 Ajouter dans les variables d'environnement PATH les chemins suivants (à modifier selon votre système) :
 
 - C:\Program Files\PostgreSQL\15\bin
-- C:\Program Files\PostgreSQL\15\lib
+
+Relancer VsCode
 
 Nous commençons avec deux fichers `.csv` students et courses.
 
 1. Se connecter à PostgreSQL
+
 2. Afficher la liste des BDDs avec `\l`
 
 ## BDD `students`
 
 - Créer une BDD `students`
+
 - Se connecter à la BDD avec `\c students`
+
 - Créer une table `students`
+
 - Créer une table `majors`
+
 - Créer une table `courses`
+
 - Créer une table `majors_courses`
+
 - Afficher les tables avec `\d`
 
 ## Création des colonnes
@@ -25,15 +33,21 @@ Nous commençons avec deux fichers `.csv` students et courses.
 ### Table `students`
 
 1. Créer une colonne `student_id` de type `SERIAL` et en faire une `PRIMARY KEY`
+
 2. Ajouter une colonne `first_name` de type `VARCHAR(50)` et qui a une contrainte `NOT NULL`
+
 3. Ajouter une colonne `last_name` de type `VARCHAR(50)` et qui a une contrainte `NOT NULL`
+
 4. Ajouter une colonne `major_id` de type `INT` (qui sera clef étrangère)
+
 5. Ajouter une colonne `gpa` de type `NUMERIC(2, 1)`
+
 6. Afficher le détail de `students`avec `\d students`
 
 ### Table `majors`
 
 1. Créer une colonne `major_id` de type `SERIAL` et en faire une `PRIMARY KEY`
+
 2. Ajouter une colonne `major` de type `VARCHAR(50)` et qui a une contrainte `NOT NULL`
 
 3. Définir la colonne `major_id` de la table `students` en tant que clef étrangère qui référence `major_id`dans la table `majors`
@@ -46,16 +60,17 @@ ALTER TABLE students ADD FOREIGN KEY(major_id) REFERENCES majors(major_id);
 ```
 
 </details>
-<br />
 
 ### Table `courses`
 
 1. Créer une colonne `course_id` de type `SERIAL` et qui est une `PRIMARY KEY`
+
 2. Ajouter une colonne `course` de type `VARCHAR(100)` et `NOT NULL`
 
 ### Table `majors_courses`
 
 1. Créer une colonne `major_id` de type `INT`
+
 2. Définir la colonne `major_id` en tant que clef étrangère qui référence `major_id`dans la table `majors`
 
 <details>
@@ -66,9 +81,9 @@ ALTER TABLE majors_courses ADD FOREIGN KEY(major_id) REFERENCES majors(major_id)
 ```
 
 </details>
-<br />
 
 3. Ajouter une colonne `course_id`de type `INT`
+
 4. Définir la colonne `course_id` en tant que clef étrangère qui référence `course_id`dans la table `courses`
 
 <details>
@@ -99,7 +114,6 @@ ALTER TABLE majors_courses ADD PRIMARY KEY(major_id, course_id);
 ```
 
 </details>
-<br />
 
 ### Lignes dans `majors`
 
@@ -139,7 +153,9 @@ INSERT INTO majors_courses(major_id, course_id) VALUES(1,1);
 </details>
 <br />
 
-4. Afficher le détail de `students` 5. Insérer le premier étudiant de `students.csv`
+4. Afficher le détail de `students`
+
+5. Insérer le premier étudiant de `students.csv`
 
 <details>
   <summary>Solution</summary>
@@ -161,20 +177,22 @@ SELECT * FROM  students;
 ```
 
 </details>
-<br />
 
 ### Ajouter les données dans `courses`, `majors` et `majors_courses`
 
-Nous avons ajouté une ligne dans chaque tableau. Il peut être judicieux de revoir les données et la structure de la base de données. Ajouter le reste des informations une par une serait fastidieux. Nous allons créer un script pour le faire pour nous. Je recommande de "diviser" le terminal pour cette partie.
+Nous avons ajouté une ligne dans chaque tableau. Il peut être judicieux de revoir les données et la structure de la base de données.
 
-1. Créer un fichier `insert_data.sh` dans à la racin du dossier du projet
+Ajouter le reste des informations une par une serait fastidieux. Nous allons créer un script pour le faire pour nous. Je recommande de "diviser" le terminal pour cette partie.
+
+1. Créer un fichier `insert_data.sh` dans à la racine du dossier du projet
+
 2. Dans le terminal utiliser la command `chmod` avec le flag `+x` pour donner des permission d'exécution
 
 ```sh
 chmod +x insert_data.sh
 ```
 
-3. Dans le fichier `insert_data.sh` ajouter un "shebang"(en-tête) `#!` pour préciser que nous faisons un script `bash`
+3. Dans le fichier `insert_data.sh` ajouter un **shebang** (en-tête) `#!` pour préciser que nous faisons un script `bash`
 
 ```sh
 #!/bin/bash
@@ -186,8 +204,9 @@ chmod +x insert_data.sh
 # Script pour insérer les données de courses.csv et students.csv dans la base de données students
 ```
 
-5. Dans `insert_data.sh` ajouter la commande `cat courses.csv` pour écrire le contenu du ficher `courses.csv` car nous aurons besoin de `major_id`
-6. Éxécuter le script pour voir si le contenu du fichier s'affiche das le terminal
+5. Dans `insert_data.sh` ajouter la commande `cat courses.csv` pour afficher le contenu du ficher `courses.csv` car nous aurons besoin de `major_id`
+
+6. Exécuter le script pour voir si le contenu du fichier s'affiche das le terminal
 
 ```
 ./insert_data.sh
@@ -196,8 +215,7 @@ chmod +x insert_data.sh
 Ça a marché. Au lieu d'imprimer le contenu, nous pouvons diriger cette sortie dans une boucle while afin de parcourir les lignes une par une. Ça ressemble à ça :
 
 ```sh
-cat courses.csv | while read MAJOR COURSE
-do
+cat courses.csv | while read MAJOR COURSE; do
   <STATEMENTS>
 done
 ```
@@ -210,16 +228,17 @@ Chaque nouvelle ligne sera lue dans les variables, `MAJOR` et `COURSE`
 <summary>Solution</summary>
 
 ```sh
-cat courses.csv | while read MAJOR COURSE
-do
-  echo $MAJOR
+cat courses.csv | while IFS="," read MAJOR COURSE; do
+  echo $MAJOR $COURSE
 done
 ```
 
 </details>
 <br />
 
-Ça boucle, mais la variable `MAJOR` n'est définie que sur le premier mot. Il y a une variable `IFS` par défaut dans bash. IFS signifie "Internal Field Separator".
+Ça boucle, mais la variable `MAJOR` n'est définie que sur le premier mot.
+
+Il existe une variable `IFS` par défaut dans bash. `IFS` signifie "Internal Field Separator".
 
 8. Utiliser la commande `declare -p IFS` dans le terminal
 
@@ -227,16 +246,15 @@ Cette variable est utilisée pour déterminer les limites des mots. Il s'agit pa
 
 9. Entre les commandes `while` et `read`, définir l'`IFS` à une virgule comme ça : `IFS=","` dans le fichier `insert_data.sh`
 
-10. Éxécuter le script pour voir si ça marche
+10. Exécuter le script pour voir si ça marche
 
-11. Afficher la variable `Course`sur la même ligne
+11. Afficher les variable `MAJOR` et `COURSE`sur la même ligne
 
 <details>
   <summary>Solution</summary>
 
 ```sh
-cat courses.csv | while read MAJOR COURSE
-do
+cat courses.csv | while IFS="," read MAJOR COURSE; do
   echo $MAJOR $COURSE
 done
 ```
@@ -246,7 +264,11 @@ done
 
 12. Supprimer la ligne du `echo`
 
-Cela aide à planifier ce que nous voulons qu'il se passe. Pour chaque boucle, nous voudrons ajouter la discipline majeure à la base de données si elle n'y est pas encore. Idem pour le cours. Ajoutons ensuite une ligne à la table `majors_courses`.
+Cela aide à planifier ce que nous voulons qu'il se passe.
+
+Pour chaque boucle, nous voudrons ajouter la discipline majeure à la base de données si elle n'y est pas encore. Idem pour le cours.
+
+Ajoutons ensuite une ligne à la table `majors_courses`.
 
 13. Ajouter ces commentaires sur une seule ligne dans votre boucle dans cet ordre : `get major_id`, `if not found`, `insert major`, `get new major_id`, `get course_id`, `if not found`, `insert course`, `get new course_id`, `insert into majors_courses`
 
@@ -254,8 +276,7 @@ Cela aide à planifier ce que nous voulons qu'il se passe. Pour chaque boucle, n
   <summary>Solution</summary>
 
 ```sh
-cat courses.csv | while read MAJOR COURSE
-do
+cat courses.csv | while IFS="," read MAJOR COURSE; do
   # get major_id
 
   # if not found
@@ -277,26 +298,55 @@ done
 ```
 
 </details>
+<br />
 
-14. au-dessus de la boucle ajouter la variable `PSQL="psql -X --username=postgress --dbname=students --no-align --tuples-only -c"`
-
-Cela nous permettra d'interroger notre base de données à partir de notre script. Les parties importantes sont `username`, `dbname` et le flag `-c` qui permet d'exécuter une seule commande et de quitter. Le reste des flags est pour le formatage du texte.
-
-15. Sous notre premier commentaire `if not found`, ajouter une condition `if` qui vérifie si la variable `MAJOR_ID` est vide. Nous pouvons le faire avec ce test : `[[ -z $MAJOR_ID ]]`. Placez les deux commentaires suivants dans la zone des instructions du `if`
+14. au-dessus de la boucle ajouter la variable suivante:
 
 ```sh
-if [[ -z $MAJOR_ID ]]
-then
+export PGPASSWORD=mon_mot_de_passe
+PSQL="psql -X --username=postgres --dbname=students -W --no-align --tuples-only -c"
+```
+
+Cela nous permettra d'interroger notre base de données à partir de notre script.
+
+Les parties importantes sont `username`, `dbname` et le flag `-c` qui permet d'exécuter une seule commande et de quitter.
+
+Le reste des flags est pour le formatage du texte.
+
+15. Maintenant, nous pouvons interroger la base de données en utilisant la variable `PSQL` comme ceci : `$($PSQL "<query_here>")`.
+
+Sous le commentaire `get major_id` dans notre boucle, créez une variable `MAJOR_ID`. Définissez-la égale au résultat d'une requête qui obtient le `major_id` du `MAJOR` actuel dans la boucle. Assurez-vous de mettre votre variable `MAJOR` entre guillemets simples.
+
+<details>
+  <summary>Solution</summary>
+
+```sh
+MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
+```
+
+</details>
+
+16. Sous la variable que nous venons de créer, utilisez `echo` pour afficher `MAJOR_ID` afin que nous puissions voir sa valeur lorsque l'on exécute le script.
+
+17. Exécuter le script
+
+Il a donc parcouru chaque majeur du fichier CSV et a essayé de trouver `major_id` pour chacun d'entre eux dans la base de données.
+
+On dirait qu'il n'a trouvé que celui que vous avez inséré manuellement plus tôt. Le reste était vide.
+
+18. Sous notre commentaire `if not found`, ajouter une condition `if` qui vérifie si la variable `MAJOR_ID` est vide. Nous pouvons le faire avec ce test : `[[ -v $MAJOR_ID ]]`. Placez les deux commentaires suivants dans la zone des instructions du `if`
+
+```sh
+if [[ -z "$MAJOR_ID" ]]; then
   # insert major
 
   # get new major_id
-
 fi
 ```
 
 La boucle ira dans le bloc `if` chaque fois qu'une discipline majeure n'est pas trouvée. Ici, nous voudrons insérer la majeure, puis obtenir le nouvel id
 
-16. En-dessous du commentaire `insert major` créer une variable `INSERT_MAJOR_RESULT`. Définir sa valeur ç que requête qui insère la majeure courante dans la table `majors`. Ne pas oublier d'utiliser les guillemets simples autour de la variable
+16. En-dessous du commentaire `insert major` créer une variable `INSERT_MAJOR_RESULT`. Définir sa valeur avec une requête qui insère la majeure courante dans la table `majors`. Ne pas oublier d'utiliser les guillemets simples autour de la variable
 
 ```sh
 INSERT_MAJOR_RESULT=$($PSQL "INSERT INTO majors(major) VALUES('$MAJOR')")
@@ -350,21 +400,17 @@ Nous ne voulons pas ajouter la première ligne du fichier CSV à la base de donn
   <summary>Solution</summary>
 
 ```sh
-do
-  if [[ $MAJOR != major ]]
-  then
+cat courses_test.csv | while IFS="," read MAJOR COURSE; do
+  if [[ $MAJOR != major ]]; then
     # get major_id
     MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
 
     # if not found
-    if [[ -z $MAJOR_ID ]]
-    then
+    if [[ -v MAJOR_ID ]]; then
       # insert major
       INSERT_MAJOR_RESULT=$($PSQL "INSERT INTO majors(major) VALUES('$MAJOR')")
-      echo $INSERT_MAJOR_RESULT
 
       # get new major_id
-
     fi
 
     # get course_id
@@ -389,36 +435,37 @@ done
   <summary>Solution</summary>
 
 ```sql
-TRUNCATE majors, majors_courses;
+TRUNCATE majors, majors_courses, students;
 ```
 
 </details>
-<br />
 
-29. Éxécuter le script pour s'asssurer qu'il n'ajoute plus la première ligne 30. Afficher les données de `majors`
+29. Éxécuter le script pour s'asssurer qu'il n'ajoute plus la première ligne
 
-Nous avons trois discplines majeurs uniques dans notre test. Les trois ont été ajoutés dans notre BDD
+30. Afficher les données de `majors`
 
-30. Supprimer la ligne `echo $INSERT_MAJOR_RESULT`
+Nous avons trois disciplines majeures uniques dans notre test.
+Les trois ont été ajoutés dans notre BDD
+
+31. Supprimer la ligne `echo $INSERT_MAJOR_RESULT`
 
 Nous voulons un message lorsque quelque chose est inséré afin que le script soit plus informatif
 
-31. En-dessous de la variable `INSERT_MAJOR_RESULT` ajouter une condition `if`qui vérifie si la variable est égale à `"INSERT 0 1"`, ce qui affichera un message `Inséré dans majors, $MAJOR` avec la commande `echo`
+32. En-dessous de la variable `INSERT_MAJOR_RESULT` ajouter une condition `if`qui vérifie si la variable est égale à `"INSERT 0 1"`, ce qui affichera un message `Inséré dans majors, $MAJOR` avec la commande `echo`
 
 <details>
   <summary>Solution</summary>
 
 ```sh
-if [[ $INSERT_MAJOR_RESULT == "INSERT 0 1" ]]
-      then
-          echo "Inserted into majors, $MAJOR"
-      fi
+if [[ $INSERT_MAJOR_RESULT == "INSERT 0 1" ]]; then
+  echo "Inserted into majors, $MAJOR"
+fi
 ```
 
 </details>
 <br />
 
-32. Tronquer la table `majors`
+33. Tronquer la table `majors`
 
 <details>
   <summary>Solution</summary>
@@ -428,11 +475,10 @@ TRUNCATE majors CASACDE;
 ```
 
 </details>
-<br />
 
-33. Vérifier que la table est vide est éxécuté le script
+34. Vérifier que la table est vide et éxécuter le script
 
-34. En-dessous du commentaire `get new major_id` définir `MAJOR_ID`à une requête que récupère le nouveau `major_id`depuis la BDD
+35. En-dessous du commentaire `get new major_id` définir `MAJOR_ID`à une requête que récupère le nouveau `major_id`depuis la BDD
 
 <details>
   <summary>Solution</summary>
@@ -444,7 +490,7 @@ MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
 </details>
 <br />
 
-34. Faire pareil avec `COURSE`
+36. Faire pareil avec `COURSE`
 
 <details>
   <summary>Solution</summary>
@@ -458,13 +504,13 @@ do
     MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
 
     # if not found
-    if [[ -z $MAJOR_ID ]]
+    if [[ -z "$MAJOR_ID" ]]
     then
       # insert major
       INSERT_MAJOR_RESULT=$($PSQL "INSERT INTO majors(major) VALUES('$MAJOR')")
       if [[ $INSERT_MAJOR_RESULT == "INSERT 0 1" ]]
       then
-        echo Inserted into majors, $MAJOR
+        echo Inséré dans majors, $MAJOR
       fi
 
       # get new major_id
@@ -475,14 +521,14 @@ do
     COURSE_ID=$($PSQL "SELECT course_id FROM courses WHERE course='$COURSE'")
 
     # if not found
-    if [[ -z $COURSE_ID ]]
+    if [[ -z "$COURSE_ID" ]]
     then
       # insert course
       INSERT_COURSE_RESULT=$($PSQL "INSERT INTO courses(course) VALUES('$COURSE')")
 
       if [[ $INSERT_COURSE_RESULT == "INSERT 0 1" ]]
       then
-        echo Inserted into courses, $COURSE
+        echo Inséré dans courses, $COURSE
       fi
       # get new course_id
       COURSE_ID=$($PSQL "SELECT course_id FROM courses WHERE course='$COURSE'")
@@ -499,7 +545,7 @@ done
 
 Au lieu de supprimer manuellement les données chaque fois que nous voulons exécuter le script, ajoutons la commande pour le faire pour nous
 
-35. En-dessous de la variable `PSQL` utiliser `echo` pour requérir la BDD. Dans la requête, tronquer les tables dans cet ordre : `students`, `majors`, `courses`, `majors_courses`
+37. En-dessous de la variable `PSQL` utiliser `echo` pour requérir la BDD. Dans la requête, tronquer les tables dans cet ordre : `students`, `majors`, `courses`, `majors_courses`
 
 <details>
   <summary>Solution</summary>
@@ -511,7 +557,9 @@ echo $($PSQL "TRUNCATE students, majors, courses, majors_courses")
 </details>
 <br />
 
-36. Éxécuter le script 38. Créer une variable `INSERT_MAJORS_COURSES_RESULT` et lui définir la requête permettant d'insérer `MAJOR_ID` et `COURSE_ID` dans la table `majors_courses`.
+38. Éxécuter le script
+
+39. Créer une variable `INSERT_MAJORS_COURSES_RESULT` et lui définir la requête permettant d'insérer `MAJOR_ID` et `COURSE_ID` dans la table `majors_courses`.
 
 <details>
   <summary>Solution</summary>
@@ -523,7 +571,15 @@ INSERT_MAJORS_COURSES_RESULT=$($PSQL "INSERT INTO majors_courses(major_id, cours
 </details>
 <br />
 
-37. En-dessous de la variable que nous venons de créer, ajotuer une condition si elle est égale à `"INSERT 0 1"` comme les autres. Utiliser `echo`pour afficher `Inséré dans majors_courses, $MAJOR : $COURSE` 40. Éxécuter le script 41. Afficher les données de la table `majors` 42. Afficher les données de la table `courses` 43. Afficher les données de la table `majors_courses`
+40. En-dessous de la variable que nous venons de créer, ajotuer une condition si elle est égale à `"INSERT 0 1"` comme les autres. Utiliser `echo`pour afficher `Inséré dans majors_courses, $MAJOR : $COURSE`
+
+41. Éxécuter le script
+
+42. Afficher les données de la table `majors`
+
+43. Afficher les données de la table `courses`
+
+44. Afficher les données de la table `majors_courses`
 
 ### Remplir la table `students`
 
@@ -534,14 +590,14 @@ cp students.csv students_test.csv
 ```
 
 2. Garder les cinq premières lignes de `students_test.csv`
-3. Dans `insert_data.sh`, en-dessous de la boucle, utiliser la commande `cat` et parcourir `students_test.csv` et `read`pour créer les variables `FRIST`, `LAST`, `MAJOR` et `GPA`. Utiliser la commande `echo`pour afficher `FIRST`
+
+3. Dans `insert_data.sh`, en-dessous de la boucle, utiliser la commande `cat` et parcourir `students_test.csv` et `read`pour créer les variables `FIRST`, `LAST`, `MAJOR` et `GPA`. Utiliser la commande `echo`pour afficher `FIRST`
 
 <details>
   <summary>Solution</summary>
 
 ```sh
-cat students_test.csv | while IFS="," read FIRST LAST MAJOR GPA
-do
+cat students_test.csv | while IFS="," read FIRST LAST MAJOR GPA; do
   echo $FIRST
 done
 ```
@@ -554,14 +610,14 @@ done
 Cela affiche encore le titre (la première ligne)
 
 5. Supprimer la ligne `echo $FIRST`
+
 6. Faire une condtion qui vérifie si `FIRST`est différent de `"first_name"`
 
 <details>
   <summary>Solution</summary>
 
 ```sh
-if [[ $FIRST != "first_name" ]]
-then
+if [[ $FIRST != "first_name" ]]; then
 fi
 ```
 
@@ -571,6 +627,7 @@ fi
 Toutes les colonnes du fichier CSV peuvent être insérées directement dans la base de données sauf la majeure. Nous devons récupérer à nouveau le `major_id` pour cela. Il y a aussi des valeurs nulles, nous devrons donc utiliser `null` si le `major_id` n'est pas trouvé
 
 7. Ajouter quatre commentaires dans la boucle : `get major_id`, `if not found`, `set to null`, and` insert student` dans cet ordre
+
 8. Sous le commentaire `get major_id`, définir la variable `MAJOR_ID` sur une requête qui obtient le `major_id` pour la majeure actuelle des étudiants.
 
 <details>
@@ -589,10 +646,9 @@ MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
   <summary>Solution</summary>
 
 ```sh
-if [[ -z $MAJOR_ID ]]
-    then
-      # set to null
-    fi
+if [[ -z "$MAJOR_ID" ]]; then
+  # set to null
+fi
 ```
 
 </details>
@@ -614,9 +670,10 @@ if [[ -z $MAJOR_ID ]]
 ```
 
 </details>
-<br />
 
-11. Supprimer la ligne `echo $MAJOR_ID` 10. Afficher le détail de `students` pour voir quelle colonnes ajouter
+11. Supprimer la ligne `echo $MAJOR_ID`
+
+12. Afficher le détail de `students` pour voir quelle colonnes ajouter
 
 ```sh
 \d students
@@ -634,22 +691,38 @@ if [[ -z $MAJOR_ID ]]
 </details>
 <br />
 
-13. Sous la variable créée, ajouter une condition `if`qui vérifié si elle est égale à `"INSERT 0 1"` comme les autres. Si c'est le cas, utiliser `echo`pour afficher `Inserted into students, $FIRST $LAST`
+13. Sous la variable créée, ajouter une condition `if`qui vérifié si elle est égale à `"INSERT 0 1"` comme les autres. Si c'est le cas, utiliser `echo`pour afficher `Inséré dans students, $FIRST $LAST`
 
 <details>
   <summary>Solution</summary>
 
 ```sh
-if [[ $INSERT_STUDENT_RESULT == "INSERT 0 1" ]]
-    then
-      echo "Inséré dans students, $FIRST $LAST"
-    fi
+if [[ $INSERT_STUDENT_RESULT == "INSERT 0 1" ]]; then
+  echo Inséré dans students, $FIRST $LAST
+fi
 ```
 
 </details>
-<br />
 
-14. Éxécuter le script 14. Afficher les données de `students` avec une requête `SELECT` 15. Changer les lignes `cat` pour utiliser les fichiers originaux 16. Éxécuter le script 17. Afficher les données de `students` 18. Afficher les données de `majors` 19. Afficher les données de `courses` 20. Afficher les données de `majors_courses` 21. Supprimer les fichiers `students_courses.csv` et `courses_test.csv` 22. Faire un dump de la BDD
+14. Éxécuter le script
+
+15. Afficher les données de `students` avec une requête `SELECT`
+
+16. Changer les lignes `cat` pour utiliser les fichiers originaux
+
+17. Éxécuter le script
+
+18. Afficher les données de `students`
+
+19. Afficher les données de `majors`
+
+20. Afficher les données de `courses`
+
+21. Afficher les données de `majors_courses`
+
+22. Supprimer les fichiers `students_courses.csv` et `courses_test.csv`
+
+23. Faire un dump de la BDD
 
 ```sh
 pg_dump --clean --create --inserts --username=postgres students > students.sql

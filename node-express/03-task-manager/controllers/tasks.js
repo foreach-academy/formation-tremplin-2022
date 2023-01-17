@@ -18,7 +18,7 @@ const getAllTasks = async (_, res) => {
 const getTask = async (req, res) => {
   const { id } = req.params;
   const { rows } = await db.query('SELECT * FROM task WHERE task_id = $1', [
-    id
+    id,
   ]);
 
   if (!rows[0]) {
@@ -48,7 +48,7 @@ const updateTask = async (req, res) => {
 const deleteTask = async (req, res) => {
   const { id } = req.params;
   const { rowCount } = await db.query('DELETE FROM task WHERE task_id = $1', [
-    id
+    id,
   ]);
 
   if (rowCount === 0) {
